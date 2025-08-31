@@ -111,38 +111,54 @@ void setup()
 	Aerosoles.clear();
 	Muros.clear();
 
-	for (int i = 0; i < 8; i++)
+	for (int i = 0; i < 12; i++)
 		Patrulleros.push_back(Patrullero(rand() % 119 + 1, rand() % 10 + 1));
 
 	for (int i = 0; i < 3; i++)
 		Aerosoles.push_back(Aerosol(rand() % 119 + 1, rand() % 7 + 1));
 
-	int anchoMax = ANCHO_PANTALLA / 3 + 5;
-
+	// Opcion 2: muros distribuidos aleatoriamente. 
+	int anchoMax = 10;
+	int altoMax = 5;
+	
+	for (int i = 0; i <= 20; i++)
+    {
+		float x = (rand() % (ANCHO_PANTALLA - anchoMax - 2)) + 1;
+		float y = (rand() % (ALTO_PANTALLA - altoMax - 5)) + 5;
+        int ancho = (rand() % anchoMax) + 1;
+        int alto = (rand() % altoMax) + 1;
+        
+		if (y + alto >= ALTO_PANTALLA - 1 || x + ancho >= ANCHO_PANTALLA - 1) break;
+        
+		Muros.push_back(Muro(x, y, alto, ancho));
+    }
+	
+	// Opcion 1: muros en los laterales dejando un pasillo central.
 	// TODO: Reutilizar codigo.
     // Muros izquierda
-    float y = 5;
-    for (int i = 0; i <= 7; i++)
-    {
-        int ancho = rand() % (anchoMax - 5) + 4;
-		float x = 1;
-        int alto = rand() % 4 + 3;
-        if (y + alto >= ALTO_PANTALLA - 1) break;
-        Muros.push_back(Muro(x, y, alto, ancho, anchoMax));
-        y += alto + 0.5f;
-    }
+	// int anchoMax = ANCHO_PANTALLA / 2;
+    // float y = 5;
+    // for (int i = 0; i <= 7; i++)
+    // {
+    //     int ancho = rand() % (anchoMax - 5) + 4;
+	// 	float x = 1;
+    //     int alto = rand() % 4 + 3;
+    //     if (y + alto >= ALTO_PANTALLA - 1) break;
+    //     Muros.push_back(Muro(x, y, alto, ancho));
+    //     y += alto + 0.5f;
+    // }
 
-    // Muros derecha
-    y = 5;
-    for (int i = 0; i <= 7; i++)
-    {
-        int ancho = rand() % (anchoMax - 5) + 4;
-        float x = ANCHO_PANTALLA - ancho - 1;
-        int alto = rand() % 4 + 3;
-        if (y + alto >= ALTO_PANTALLA - 1) break;
-        Muros.push_back(Muro(x, y, alto, ancho, anchoMax));
-        y += alto + 0.5f;
-    }
+    // // Muros derecha
+    // y = 5;
+    // for (int i = 0; i <= 7; i++)
+    // {
+    //     int ancho = rand() % (anchoMax - 5) + 4;
+    //     float x = ANCHO_PANTALLA - ancho - 1;
+    //     int alto = rand() % 4 + 3;
+    //     if (y + alto >= ALTO_PANTALLA - 1) break;
+    //     Muros.push_back(Muro(x, y, alto, ancho));
+    //     y += alto + 0.5f;
+    // }
 }
 
 ///////////////////////////////////////////////////////////////////////////

@@ -5,7 +5,7 @@
 using namespace std;
 
 Artista::Artista() 
-  :m_x(60), m_y(20), m_aerosoles(5), m_vidas(2), m_atrapada(false)
+  :m_x(60), m_y(20), m_aerosoles(3), m_vidas(2), m_atrapada(false)
 {
 }
 
@@ -14,7 +14,7 @@ void Artista::setup()
   m_x = 60;
   m_y = 20;
   
-  m_aerosoles = 5;
+  m_aerosoles = 3;
   m_vidas = 2;
 
   m_atrapada = false;
@@ -26,7 +26,7 @@ void Artista::update()
 	{
     m_atrapada = true;
     m_vidas--;
-    m_aerosoles = 5;
+    m_aerosoles = 3;
   }
 }
 
@@ -34,61 +34,32 @@ void Artista::draw()
 {
   if (!m_atrapada)
   {
-    // TODO: Dibujar a la artista libre.
-    mvaddch(m_y, m_x + 2, '^');
-    mvaddch(m_y + 1, m_x + 1, '(');
-    mvaddch(m_y + 1, m_x + 2, ACS_PLMINUS);
-    mvaddch(m_y + 1, m_x + 3, ')');
-    mvaddch(m_y + 2, m_x, ACS_ULCORNER);
-    mvaddch(m_y + 2, m_x + 1, '#');
-    mvaddch(m_y + 2, m_x + 2, ' ');
-    mvaddch(m_y + 2, m_x + 3, '#');
-    mvaddch(m_y + 2, m_x + 4, ACS_URCORNER);
+    mvaddch(m_y,     m_x + 2, 'O');        // Cabeza
+    mvaddch(m_y + 1, m_x + 1, '/');
+    mvaddch(m_y + 1, m_x + 2, '|');        // Cuerpo
+    mvaddch(m_y + 1, m_x + 3, '\\');
+    mvaddch(m_y + 2, m_x + 1, '/');
+    mvaddch(m_y + 2, m_x + 3, '\\');
+    mvaddch(m_y + 2, m_x + 2, 'o');        // Spray en mano
   }
   else
   {
-    // TODO: Dibujar a la artista atrapada por la policia.
-    wchar_t w_fuego = 128293;
-    wchar_t w_explosion = 128165;
-    cchar_t fuego;
-    cchar_t explosion;
-    setcchar(&fuego, &w_fuego, A_NORMAL, 0, nullptr);
-    setcchar(&explosion, &w_explosion, A_NORMAL, 0, nullptr);
+    wchar_t w_policia = 0x1F694;   // 🚔
+    wchar_t w_golpe   = 0x1F4A2;   // 💢
+    cchar_t policia;
+    cchar_t golpe;
+    setcchar(&policia, &w_policia, A_NORMAL, 0, nullptr);
+    setcchar(&golpe,   &w_golpe,   A_NORMAL, 0, nullptr);
 
-    // Dibujamos el fuego.
-    mvadd_wch(m_y, m_x + 2, &fuego);
-    mvadd_wch(m_y + 1, m_x + 1, &fuego);
-    mvadd_wch(m_y + 1, m_x + 2, &fuego);
-    mvadd_wch(m_y + 2, m_x, &fuego);
-    mvadd_wch(m_y + 2, m_x + 1, &fuego);
-    mvadd_wch(m_y + 2, m_x + 2, &fuego);
+    // Artista atrapada
+    mvadd_wch(m_y,     m_x + 2, &golpe);
+    mvadd_wch(m_y + 1, m_x + 1, &policia);
+    mvadd_wch(m_y + 1, m_x + 3, &policia);
+    mvadd_wch(m_y + 2, m_x + 2, &golpe);
 
+    mvprintw(m_y + 4, m_x - 8, "La poli te atrapó!");
     refresh();
-    delay_output(200);
-
-    // Dibujamos la explosión.
-    mvprintw(m_y - 1, m_x - 3, ".         .");
-    mvprintw(m_y + 3, m_x - 3, "'         '");
-    mvadd_wch(m_y - 1, m_x + 2, &explosion);
-
-    mvadd_wch(m_y, m_x, &explosion);
-    mvadd_wch(m_y, m_x + 5, &explosion);
-    mvaddch(m_y, m_x + 2, ' ');
-
-    mvadd_wch(m_y + 1, m_x - 2, &explosion);
-    mvadd_wch(m_y + 1, m_x + 6, &explosion);
-    // Borramos un fuego para que quede bien.
-    mvaddch(m_y + 1, m_x + 1, ' ');
-
-    mvadd_wch(m_y + 2, m_x, &explosion);
-    mvadd_wch(m_y + 2, m_x + 5, &explosion);
-    // Borramos un fuego para que quede bien.
-    mvaddch(m_y + 2, m_x + 2, ' ');
-
-    mvadd_wch(m_y + 3, m_x + 2, &explosion);
-
-    refresh();
-    delay_output(200);
+    delay_output(1500);
   
     m_atrapada = false;
   }
@@ -114,7 +85,7 @@ int Artista::getY() { return m_y; }
 void Artista::setAerosoles(int aerosoles) { 
   m_aerosoles = aerosoles;
   if (m_aerosoles < 0) m_aerosoles = 0;
-  if (m_aerosoles > 5) m_aerosoles = 5;
+  if (m_aerosoles > 3) m_aerosoles = 3;
 }
 int Artista::getAerosoles() { return m_aerosoles; }
 

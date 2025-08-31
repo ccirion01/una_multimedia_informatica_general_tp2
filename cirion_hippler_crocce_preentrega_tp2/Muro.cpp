@@ -1,12 +1,11 @@
 #include "Muro.h"
 
-Muro::Muro(float x, float y, int alto, int ancho, int anchoMax)
+Muro::Muro(float x, float y, int alto, int ancho)
 {
     m_x = x;
     m_y = y;    
     m_alto = alto;
     m_ancho = ancho;
-    m_anchoMax = anchoMax; // TODO: Ver si es necesario.
 }
 
 // TODO: Ver si mover muros o dejarlos fijos.
@@ -23,8 +22,9 @@ void Muro::update()
 
 void Muro::draw()
 {
-    attron(COLOR_PAIR(1)); 
-    wchar_t w_muro = 0x2588;
+    attron(COLOR_PAIR(1));
+    wchar_t w_muro = 0x1F9F1; // 🧱
+    // wchar_t w_muro = 0x2588; // █
     cchar_t muro;
     setcchar(&muro, &w_muro, A_NORMAL, 0, nullptr);
 
