@@ -249,7 +249,7 @@ void draw()
 bool puedeMoverArtista(int nuevoX, int nuevoY)
 {
 	// TODO: Modificar coordenadas al modificar el grafico de la artista.
-    int coords[9][2] = {
+    int coords[11][2] = {
         {nuevoX + 2, nuevoY},         // '^'
         {nuevoX + 1, nuevoY + 1},     // '('
         {nuevoX + 2, nuevoY + 1},     // ACS_PLMINUS
@@ -258,10 +258,12 @@ bool puedeMoverArtista(int nuevoX, int nuevoY)
         {nuevoX + 1, nuevoY + 2},     // '#'
         {nuevoX + 2, nuevoY + 2},     // ' '
         {nuevoX + 3, nuevoY + 2},     // '#'
-        {nuevoX + 4, nuevoY + 2}      // ACS_URCORNER
+        {nuevoX + 4, nuevoY + 2},     // ACS_URCORNER
+        {nuevoX - 1, nuevoY + 2},     // Pixel extra izquierda
+        {nuevoX + 5, nuevoY + 2}      // Pixel extra derecha
     };
 
-	for (int i = 0; i < 9; i++) {
+	for (int i = 0; i < 11; i++) {
         for (int j = 0; j < Muros.size(); j++) {
             if (Muros[j].ocupa(coords[i][0], coords[i][1]))
                 return false;
