@@ -65,6 +65,9 @@ int main()
 	keypad(stdscr, TRUE);
 	nodelay(stdscr, TRUE);
 
+	start_color();
+	init_pair(1, COLOR_YELLOW, COLOR_BLACK);
+
 	// if (LINES < ALTO_PANTALLA || COLS < ANCHO_PANTALLA)
 	// {
 	// 	endwin();
@@ -108,11 +111,11 @@ void setup()
 	Aerosoles.clear();
 	Muros.clear();
 
-	for (int i = 0; i < 3; i++)
-	{
+	for (int i = 0; i < 8; i++)
 		Patrulleros.push_back(Patrullero(rand() % 119 + 1, rand() % 10 + 1));
+
+	for (int i = 0; i < 3; i++)
 		Aerosoles.push_back(Aerosol(rand() % 119 + 1, rand() % 7 + 1));
-	}
 
 	int anchoMax = ANCHO_PANTALLA / 3 + 5;
 
@@ -245,10 +248,24 @@ void draw()
 // TODO: Mover a clase Artista.
 bool puedeMoverArtista(int nuevoX, int nuevoY)
 {
-    for (int i = 0; i < Muros.size(); i++)
-    {
-        if (Muros[i].ocupa(nuevoX, nuevoY))
-            return false;
+	// TODO: Modificar coordenadas al modificar el grafico de la artista.
+    int coords[9][2] = {
+        {nuevoX + 2, nuevoY},         // '^'
+        {nuevoX + 1, nuevoY + 1},     // '('
+        {nuevoX + 2, nuevoY + 1},     // ACS_PLMINUS
+        {nuevoX + 3, nuevoY + 1},     // ')'
+        {nuevoX,     nuevoY + 2},     // ACS_ULCORNER
+        {nuevoX + 1, nuevoY + 2},     // '#'
+        {nuevoX + 2, nuevoY + 2},     // ' '
+        {nuevoX + 3, nuevoY + 2},     // '#'
+        {nuevoX + 4, nuevoY + 2}      // ACS_URCORNER
+    };
+
+	for (int i = 0; i < 9; i++) {
+        for (int j = 0; j < Muros.size(); j++) {
+            if (Muros[j].ocupa(coords[i][0], coords[i][1]))
+                return false;
+        }
     }
     return true;
 }

@@ -20,6 +20,7 @@ void Aerosol::update()
 void Aerosol::draw()
 {
   wchar_t w_aerosol = 0x1F3A8;
+  cchar_t aerosol;
   setcchar(&aerosol, &w_aerosol, A_NORMAL, 0, nullptr);
   mvadd_wch(m_y, m_x, &aerosol);
 }

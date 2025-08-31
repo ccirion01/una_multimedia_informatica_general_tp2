@@ -23,13 +23,19 @@ void Muro::update()
 
 void Muro::draw()
 {
+    attron(COLOR_PAIR(1)); 
+    wchar_t w_muro = 0x2588;
+    cchar_t muro;
+    setcchar(&muro, &w_muro, A_NORMAL, 0, nullptr);
+
     for (int i = 0; i < m_alto; i++)
     {
         for (int j = 0; j < m_ancho; j++)
         {
-            mvaddch(m_y + i, m_x + j, ACS_CKBOARD);
+            mvadd_wch(m_y + i, m_x + j, &muro);
         }
     }
+    attroff(COLOR_PAIR(1));
 }
 
 bool Muro::ocupa(int x, int y)
