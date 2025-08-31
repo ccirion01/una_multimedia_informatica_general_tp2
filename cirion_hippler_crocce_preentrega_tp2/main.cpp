@@ -1,3 +1,7 @@
+// Crocce Ana Laura
+// Hippler María Silvina
+// Cirión Constanza
+
 #include <iostream>
 #include <ncurses.h>
 #include <cstdlib>
