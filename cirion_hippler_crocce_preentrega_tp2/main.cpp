@@ -264,7 +264,7 @@ void draw()
 // TODO: Mover a clase Artista.
 bool puedeMoverArtista(int nuevoX, int nuevoY)
 {
-	// TODO: Modificar coordenadas al modificar el grafico de la artista.
+	// TODO: Modificar coordenadas para adaptarlas al grafico de la artista.
     int coords[11][2] = {
         {nuevoX + 2, nuevoY},         // '^'
         {nuevoX + 1, nuevoY + 1},     // '('
@@ -291,7 +291,6 @@ bool puedeMoverArtista(int nuevoX, int nuevoY)
 ///////////////////////////////////////////////////////////////////////////
 void gameOver()
 {
-	// TODO: Meter algun grafico de "Game Over".
 	for (int y = 10; y < 16; y++)	mvhline(y, 40, ' ', 40);
 
 	mvaddch(9, 39, ACS_ULCORNER);
@@ -305,7 +304,12 @@ void gameOver()
 	mvvline(10, 39, ACS_VLINE, 6);
 	mvvline(10, 80, ACS_VLINE, 6);
 
+	wchar_t w_corazon_roto = L'\U0001F494'; // 💔
+	cchar_t cr;
+	setcchar(&cr, &w_corazon_roto, A_NORMAL, 0, nullptr);
+	
 	mvprintw(12, 55, "GAME OVER");
+	mvadd_wch(12, 65, &cr);
 	mvprintw(13, 50, "VOLVER A JUGAR? (S/N)");
 
 	int opcion = getch();

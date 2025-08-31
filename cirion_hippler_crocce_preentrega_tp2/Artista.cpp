@@ -57,7 +57,7 @@ void Artista::draw()
     mvadd_wch(m_y + 1, m_x + 3, &policia);
     mvadd_wch(m_y + 2, m_x + 2, &golpe);
 
-    mvprintw(m_y + 4, m_x - 8, "La poli te atrapó!");
+    mvprintw(m_y + 4, m_x - 6, "La poli te agarro!");
     refresh();
     delay_output(1500);
   
